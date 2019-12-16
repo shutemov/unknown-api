@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('users', 'UserController@index');
 Route::get('users/{user}', 'UserController@show');
+Route::post('users/check', 'UserController@checkExistUser');
 Route::post('users', 'UserController@store');
 
 
@@ -26,9 +27,10 @@ Route::get('routes','RouteWayController@index');
 Route::get('users/{user}/routes','RouteWayController@show');
 Route::post('users/{user}/routes','RouteWayController@store');
 Route::post('routes/{routeWay}/remove', 'RouteWayController@destroy');
+Route::post('routes/{routeWay}/update', 'RouteWayController@update');
 
 
-Route::get('routes','RouteWayController@index');
+Route::get('points','PointController@index');
 Route::get('routes/{routeWay}/points','PointController@show');
 Route::post('routes/{routeWay}/points','PointController@store');
 Route::post('points/{point}/remove', 'PointController@destroy');

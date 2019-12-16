@@ -17,6 +17,9 @@ class CreateRouteWaysTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
             $table->string('title');
+            $table->string('description');
+            $table->string('interest');
+            $table->string('type');
             $table->timestamps();
         });
     }

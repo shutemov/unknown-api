@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Point;
 use App\RouteWay;
-use App\User;
 use Illuminate\Http\Request;
 
-class RouteWayController extends Controller
+class PointController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class RouteWayController extends Controller
      */
     public function index()
     {
-        return RouteWay::all();
+        return Point::all();
     }
 
     /**
@@ -34,38 +34,42 @@ class RouteWayController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,User $user)
+    public function store(Request $request, RouteWay $routeWay)
     {
         // TODO: add validation
         $title = $request->title;
+        $xCoord = +$request->xCoord;
+        $yCoord = +$request->yCoord;
 
-        $user->routes()->create([
+        $routeWay->points()->create([
             'title' => $title,
+            'xCoord' => $xCoord,
+            'yCoord' => $yCoord
         ]);
 
-        return $user->routes;
+        return $routeWay->points();
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\RouteWay  $routeWay
+     * @param  \App\Point  $point
      * @return \Illuminate\Http\Response
      */
-
-    public function show(User $user)
+    public function show(RouteWay $routeWay)
     {
-        $user->load('routes');
-        return $user->routes->load('points');
+        return $routeWay->load('points')->points;
+//        return $routeWay;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\RouteWay  $routeWay
+     * @param  \App\Point  $point
      * @return \Illuminate\Http\Response
      */
-    public function edit(RouteWay $routeWay)
+    public function edit(Point $point)
     {
         //
     }
@@ -74,10 +78,10 @@ class RouteWayController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\RouteWay  $routeWay
+     * @param  \App\Point  $point
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RouteWay $routeWay)
+    public function update(Request $request, Point $point)
     {
         //
     }
@@ -85,12 +89,12 @@ class RouteWayController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\RouteWay  $routeWay
+     * @param  \App\Point  $point
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RouteWay $routeWay)
+    public function destroy(Point $point)
     {
-        $routeWay->delete();
+        $point->delete();
         return response()->json('ok');
     }
 }

@@ -30,7 +30,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -39,18 +39,23 @@ class UserController extends Controller
         $login = $request->login;
         $password = $request->password;
 
-        $user = User::create([
-            'login' => $login,
-            'password' => $password
-        ]);
+        $checkExist = User::where('login', $login)->first();
 
-        return $user;
+        if ($checkExist === null) {
+            $user = User::create([
+                'login' => $login,
+                'password' => $password
+            ]);
+            return response()->json($user);
+
+        }
+        return response()->json("this user existed");
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -62,7 +67,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -73,8 +78,8 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param \Illuminate\Http\Request $request
+     * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
@@ -85,11 +90,24 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)
     {
         //
+    }
+
+    public function checkExistUser(Request $request)
+    {
+        $login = $request->login;
+        $user = User::where('login', $login)->first();
+
+        if ($user === null) {
+            return response()->json([
+                'status' => 'USER NO EXISTING',
+            ]);
+        }
+        return response()->json($user);
     }
 }
