@@ -73,6 +73,19 @@ class RouteWayController extends Controller
         //
     }
 
+    public function postGetRouteById(RouteWay $routeWay)
+    {
+        $route = RouteWay::find(['id'=>$routeWay->id]);
+        return $route->load('points');
+    }
+
+    public function getRouteById(RouteWay $routeWay)
+    {
+        $route = RouteWay::find(['id'=>$routeWay->id]);
+        return $route->load('points');
+    }
+
+
     /**
      * Update the specified resource in storage.
      *

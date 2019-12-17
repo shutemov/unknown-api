@@ -31,7 +31,7 @@ class PointController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, RouteWay $routeWay)
@@ -54,7 +54,7 @@ class PointController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Point  $point
+     * @param \App\Point $point
      * @return \Illuminate\Http\Response
      */
     public function show(RouteWay $routeWay)
@@ -66,7 +66,7 @@ class PointController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Point  $point
+     * @param \App\Point $point
      * @return \Illuminate\Http\Response
      */
     public function edit(Point $point)
@@ -77,8 +77,8 @@ class PointController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Point  $point
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Point $point
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Point $point)
@@ -89,12 +89,13 @@ class PointController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Point  $point
-     * @return \Illuminate\Http\Response
+     * @param \App\Point $point
+     * @return bool
+     * @throws \Exception
      */
     public function destroy(Point $point)
     {
-        $point->delete();
-        return response()->json('ok');
+        $deletedPoint = $point->delete();
+        return $deletedPoint;
     }
 }

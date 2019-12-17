@@ -24,6 +24,8 @@ Route::post('users', 'UserController@store');
 
 
 Route::get('routes','RouteWayController@index');
+Route::POST('routes/{routeWay}','RouteWayController@postGetRouteById');
+Route::GET('routes/{routeWay}','RouteWayController@getRouteById');
 Route::get('users/{user}/routes','RouteWayController@show');
 Route::post('users/{user}/routes','RouteWayController@store');
 Route::post('routes/{routeWay}/remove', 'RouteWayController@destroy');
@@ -36,10 +38,3 @@ Route::post('routes/{routeWay}/points','PointController@store');
 Route::post('points/{point}/remove', 'PointController@destroy');
 
 
-//Route::get('todos', 'TodoListController@index');
-//Route::post('todos', 'TodoListController@store');
-//Route::get('todos/{todoList}', 'TodoListController@show');
-//Route::post('todos/{todoList}', 'TodoListController@update');
-//Route::post('todos/{todoList}/items', 'TodoItemController@store');
-//Route::post('items/{todoItem}', 'TodoItemController@update');
-//Route::post('items/{todoItem}/remove', 'TodoItemController@destroy');
